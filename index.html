@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setembro Amarelo · Grupo MTA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --paper:#FBF6EA; --paper-2:#F4ECD8; --ink:#2B2118; --ink-soft:#5C5040;
+    --amber:#F2A900; --amber-deep:#D98A00; --sage:#3E6B5A; --sage-soft:#EAF0EB;
+    --coral:#E0533D; --line:#E6DBC2; --radius:18px;
+    --shadow:0 1px 2px rgba(43,33,24,.06),0 12px 30px -18px rgba(43,33,24,.35);
+    --head-h:104px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);overflow-x:hidden;
+    font-family:"Instrument Sans",system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:940px;margin:0 auto;padding:0 18px}
+  h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:500;line-height:1.14;letter-spacing:-.01em;margin:0}
+  a{color:inherit}
+  .ribbon{width:16px;height:16px;flex:none}
+
+  /* ===== STICKY HEADER (brand + CVV + nav) ===== */
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(251,246,234,.92);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar-row{max-width:940px;margin:0 auto;padding:9px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:15px}
+  .cvv-pill{display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:var(--paper);
+    text-decoration:none;padding:8px 15px;border-radius:999px;font-size:13.5px;font-weight:500;white-space:nowrap}
+  .cvv-pill b{color:var(--amber);font-size:15px}
+  .navchips{display:flex;gap:8px;overflow-x:auto;padding:2px 18px 11px;max-width:940px;margin:0 auto;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .navchips::-webkit-scrollbar{display:none}
+  .navchips a{flex:none;text-decoration:none;font-size:14px;font-weight:600;color:var(--ink-soft);
+    background:#fff;border:1.5px solid var(--line);padding:9px 15px;border-radius:999px;white-space:nowrap;
+    transition:border-color .15s,color .15s,background .15s}
+  .navchips a:hover{color:var(--ink);border-color:var(--amber-deep)}
+  .navchips a.active{color:var(--ink);border-color:var(--ink);background:#fff8e6}
+
+  section,header.hero{scroll-margin-top:var(--head-h)}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;overflow:hidden;padding:52px 0 46px}
+  .hero:before{content:"";position:absolute;inset:0;z-index:0;
+    background:radial-gradient(120% 90% at 88% -10%,rgba(242,169,0,.28),transparent 55%),
+    radial-gradient(90% 70% at 5% 110%,rgba(62,107,90,.14),transparent 60%)}
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--amber-deep);background:#fff8e6;border:1px solid var(--line);padding:7px 13px;border-radius:999px}
+  .hero h1{font-size:clamp(36px,8vw,68px);margin:20px 0 0;max-width:12ch}
+  .hero h1 em{font-style:italic;color:var(--amber-deep)}
+  .hero p{font-size:clamp(17px,4.4vw,21px);color:var(--ink-soft);max-width:46ch;margin:16px 0 0}
+  .hero .actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:600;
+    padding:14px 22px;border-radius:999px;font-size:16px;transition:transform .15s,box-shadow .15s}
+  .btn-primary{background:var(--ink);color:var(--paper)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn:active{transform:translateY(1px)}
+  @media(hover:hover){.btn:hover{transform:translateY(-2px)}}
+
+  /* ===== SECTIONS ===== */
+  section{padding:48px 0}
+  .kicker{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);margin-bottom:11px}
+  .sec-head h2{font-size:clamp(26px,6vw,38px)}
+  .sec-head p{color:var(--ink-soft);max-width:56ch;margin:13px 0 0}
+  .divider{height:1px;background:var(--line);border:0;margin:0}
+
+  .grid{display:grid;gap:14px;margin-top:30px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  .card .ic{font-size:26px;line-height:1;display:block;margin-bottom:12px}
+  .card h3{font-size:19px;margin-bottom:6px}
+  .card p{margin:0;font-size:15px;color:var(--ink-soft)}
+
+  .band{background:var(--paper-2)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .panel.sinais{border-top:5px solid var(--amber)}
+  .panel.acolher{border-top:5px solid var(--sage)}
+  .panel h3{font-size:21px;margin-bottom:8px}
+  .checklist{list-style:none;padding:0;margin:14px 0 0}
+  .checklist li{position:relative;padding:10px 0 10px 30px;border-bottom:1px dashed var(--line);font-size:15px}
+  .checklist li:last-child{border-bottom:0}
+  .checklist li:before{content:"";position:absolute;left:0;top:14px;width:15px;height:15px;border-radius:5px;
+    background:var(--sage-soft);border:1.5px solid var(--sage)}
+  .sinais .checklist li:before{background:#fdf0d6;border-color:var(--amber-deep)}
+
+  .video-card{display:flex;gap:18px;align-items:center;background:var(--ink);color:var(--paper);
+    border-radius:20px;padding:22px;margin-top:26px;text-decoration:none}
+  .play{flex:none;width:60px;height:60px;border-radius:50%;background:var(--amber);display:grid;place-items:center}
+  .play svg{width:24px;height:24px;fill:var(--ink);margin-left:4px}
+  .video-card h3{color:var(--paper);font-size:20px}
+  .video-card span{color:#d8cdb8;font-size:14px;display:block;margin-top:3px}
+
+  /* ===== HELP FINDER ===== */
+  .finder{margin-top:28px}
+  .tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);padding:11px 17px;
+    border-radius:999px;font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .search{position:relative;margin-bottom:14px}
+  .search input{width:100%;padding:15px 16px 15px 46px;font-size:16px;font-family:inherit;
+    border:1.5px solid var(--line);border-radius:13px;background:#fff;color:var(--ink)}
+  .search input:focus{outline:none;border-color:var(--amber-deep);box-shadow:0 0 0 4px rgba(242,169,0,.15)}
+  .search .sic{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:19px;height:19px;
+    stroke:var(--ink-soft);fill:none;stroke-width:2;stroke-linecap:round}
+  .search small{display:block;color:var(--ink-soft);font-size:13px;margin-top:7px;padding-left:2px}
+  .schedule{font-size:14px;color:var(--ink-soft);background:var(--sage-soft);border-radius:10px;padding:11px 14px;margin-bottom:14px}
+  .schedule b{color:var(--sage)}
+  .count{font-size:13px;color:var(--ink-soft);margin:0 0 12px;padding-left:2px}
+  .ubs-list{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .ubs{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 16px;
+    display:flex;flex-direction:column;gap:3px;text-decoration:none;transition:border-color .15s,transform .15s}
+  .ubs:active{border-color:var(--amber-deep)}
+  @media(hover:hover){.ubs:hover{border-color:var(--amber-deep);transform:translateY(-2px)}}
+  .ubs .nm{font-weight:600;font-size:15.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .ubs .ad{font-size:13.5px;color:var(--ink-soft)}
+  .ubs .meta{font-size:12.5px;color:var(--sage);margin-top:2px}
+  .badge{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff;
+    background:var(--coral);padding:2px 8px;border-radius:999px}
+  .empty{grid-column:1/-1;text-align:center;color:var(--ink-soft);padding:26px;font-size:15px}
+  .santana p{font-size:15px;color:var(--ink-soft);margin:0 0 13px}
+  .santana .subhead{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);margin:22px 0 12px}
+  .santana .datanote{font-size:12.5px;color:var(--ink-soft);margin-top:18px;font-style:italic}
+
+  /* ===== CVV ===== */
+  .crisis{background:linear-gradient(135deg,#2B2118,#3a2c1c);color:var(--paper);text-align:center;
+    border-radius:24px;padding:40px 22px;margin-top:10px}
+  .crisis .kicker{color:var(--amber);justify-content:center}
+  .crisis h2{color:var(--paper);font-size:clamp(24px,6vw,34px)}
+  .crisis .num{font-family:"Fraunces",serif;font-size:clamp(60px,20vw,92px);color:var(--amber);line-height:1;margin:8px 0}
+  .crisis p{color:#d8cdb8;max-width:44ch;margin:0 auto}
+  .crisis .actions{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+  .crisis .btn-primary{background:var(--amber);color:var(--ink)}
+  .crisis .btn-ghost{color:var(--paper);border-color:#6b5c46}
+
+  /* ===== QR ===== */
+  .qrbox{display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin-top:28px;background:#fff;
+    border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .qrwrap{flex:none;display:flex;flex-direction:column;align-items:center;gap:9px;margin:0 auto}
+  #qrcode{width:172px;height:172px;padding:12px;background:#fff;border-radius:14px;border:1px solid var(--line)}
+  #qrcode img,#qrcode canvas{border-radius:6px}
+  .qrcap{font-size:12.5px;color:var(--ink-soft)}
+  .qrcap b{color:var(--ink)}
+  .qrbox .qrtext{flex:1;min-width:240px}
+  .qrbox h3{font-size:21px;margin-bottom:6px}
+  .qrbox p{color:var(--ink-soft);font-size:14.5px;margin:0 0 13px}
+  .qrfield{display:flex;gap:8px;flex-wrap:wrap}
+  .qrfield input{flex:1;min-width:100%;padding:12px 14px;font-family:inherit;font-size:14.5px;border:1.5px solid var(--line);border-radius:10px}
+  .qrfield input:focus{outline:none;border-color:var(--amber-deep)}
+  .qrfield button{background:var(--ink);color:var(--paper);border:0;font-family:inherit;font-weight:600;padding:13px 20px;border-radius:10px;cursor:pointer;flex:1}
+
+  footer{background:var(--ink);color:#cfc4ae;text-align:center;padding:38px 20px;margin-top:52px}
+  footer .laco{margin:0 auto 12px;display:block}
+  footer p{margin:4px 0;font-size:14px}
+  footer b{color:var(--paper)}
+
+  /* ===== MOBILE ===== */
+  @media(max-width:760px){
+    :root{--head-h:118px}
+    .g3,.g2,.two,.ubs-list{grid-template-columns:1fr}
+    .btn{flex:1;min-width:calc(50% - 6px)}
+    section{padding:40px 0}
+    .qrbox{flex-direction:column;text-align:center}
+    .qrbox .qrtext{min-width:100%}
+    .qrfield button{flex:1 1 100%}
+  }
+  @media(max-width:400px){
+    .brand span{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body id="topo">
+
+<!-- STICKY HEADER -->
+<div class="topbar">
+  <div class="topbar-row">
+    <a class="brand" href="#topo">
+      <svg class="ribbon" viewBox="0 0 24 24" fill="none"><path d="M12 2c-2 4-2 7 0 10 2-3 2-6 0-10Z" fill="#D98A00"/><path d="M12 12l-5 10 5-3 5 3-5-10Z" fill="#D98A00"/></svg>
+      <span>Setembro Amarelo</span>
+    </a>
+    <a class="cvv-pill" href="tel:188"><b>188</b> Ligar CVV</a>
+  </div>
+  <nav class="navchips">
+    <a href="#cuidado">Autocuidado</a>
+    <a href="#acolher">Acolher</a>
+    <a href="#video">Vídeo</a>
+    <a href="#ajuda">Onde buscar ajuda</a>
+    <a href="#cvv">CVV 188</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<header class="hero" id="inicio">
+  <div class="wrap">
+    <span class="eyebrow">
+      <svg class="ribbon" viewBox="0 0 24 24" fill="none"><path d="M12 2c-2 4-2 7 0 10 2-3 2-6 0-10Z" fill="#D98A00"/><path d="M12 12l-5 10 5-3 5 3-5-10Z" fill="#D98A00"/></svg>
+      Grupo MTA · Recursos Humanos
+    </span>
+    <h1>Falar sobre a vida <em>também é cuidado.</em></h1>
+    <p>Um mês para lembrar que ninguém precisa carregar tudo sozinho — e para deixar claro onde encontrar ajuda, aqui perto de você.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#ajuda">Onde buscar ajuda</a>
+      <a class="btn btn-ghost" href="#cuidado">Autocuidado</a>
+    </div>
+  </div>
+</header>
+
+<hr class="divider">
+
+<!-- AUTOCUIDADO -->
+<section id="cuidado">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Autocuidado</div>
+      <h2>Pequenos hábitos que sustentam a gente</h2>
+      <p>Cuidar da saúde mental não é sobre grandes gestos. É sobre o que você repete nos dias comuns.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card"><span class="ic">😴</span><h3>Durma o suficiente</h3><p>O sono regula humor e energia. Um horário mais constante já muda muita coisa.</p></div>
+      <div class="card"><span class="ic">🚶</span><h3>Mova o corpo</h3><p>Uma caminhada leve libera tensão e ajuda a organizar os pensamentos.</p></div>
+      <div class="card"><span class="ic">💬</span><h3>Fale com alguém</h3><p>Colocar em palavras alivia. Procure quem te escuta sem julgar.</p></div>
+      <div class="card"><span class="ic">🌬️</span><h3>Pausas conscientes</h3><p>Respire fundo algumas vezes ao longo do dia. Presença acalma.</p></div>
+      <div class="card"><span class="ic">📵</span><h3>Ponha limites</h3><p>Descansar do trabalho e das telas não é preguiça — é manutenção.</p></div>
+      <div class="card"><span class="ic">🫶</span><h3>Peça ajuda</h3><p>Buscar apoio profissional é sinal de força, nunca de fraqueza.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACOLHER -->
+<section class="band" id="acolher">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Conscientização</div>
+      <h2>Perceber e acolher</h2>
+      <p>Você não precisa ter todas as respostas para fazer diferença. Reparar e se aproximar já é muito.</p>
+    </div>
+    <div class="two">
+      <div class="panel sinais">
+        <h3>Sinais de que alguém pode estar sofrendo</h3>
+        <ul class="checklist">
+          <li>Isolamento repentino de amigos, família ou colegas</li>
+          <li>Falas de desânimo profundo, culpa ou "sem saída"</li>
+          <li>Mudanças no sono, no apetite ou no humor</li>
+          <li>Perda de interesse pelo que antes gostava</li>
+          <li>Descuido consigo ou frases de despedida</li>
+        </ul>
+      </div>
+      <div class="panel acolher">
+        <h3>Como acolher</h3>
+        <ul class="checklist">
+          <li>Escute com atenção, sem julgar nem apressar</li>
+          <li>Pergunte diretamente — perguntar não coloca a ideia na cabeça</li>
+          <li>Leve a sério e não minimize o que a pessoa sente</li>
+          <li>Ofereça companhia para procurar ajuda profissional</li>
+          <li>Em risco imediato, não deixe a pessoa sozinha</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VÍDEO -->
+<section id="video">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Assista</div>
+      <h2>Entenda o Setembro Amarelo</h2>
+    </div>
+    <a class="video-card" href="https://www.youtube.com/watch?v=BNj3xk_ctCA" target="_blank" rel="noopener">
+      <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+      <div>
+        <h3>Setembro Amarelo — a campanha</h3>
+        <span>Toque para assistir no YouTube</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ONDE BUSCAR AJUDA -->
+<section id="ajuda" class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Onde buscar ajuda</div>
+      <h2>Atendimento psicológico gratuito</h2>
+      <p>Macapá e Santana. Veja a lista completa abaixo — ou filtre pelo seu bairro se quiser achar mais rápido.</p>
+    </div>
+
+    <div class="finder">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" data-tab="macapa">Macapá · UBS</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="emergencia">Emergência</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="santana">Santana</button>
+      </div>
+
+      <div class="search" id="searchWrap">
+        <svg class="sic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="search" placeholder="Filtrar por bairro (opcional)…">
+        <small>Toque em qualquer UBS para abrir no mapa.</small>
+      </div>
+
+      <div class="schedule" id="schedule"><b>Horário geral das UBS:</b> segunda a sexta, das 8h às 17h.</div>
+      <p class="count" id="count"></p>
+
+      <div class="ubs-list" id="list"></div>
+
+      <div class="santana" id="santana" style="display:none">
+        <p>Em Santana, o cuidado especializado em saúde mental fica com os <b>CAPS</b>. As <b>UBS</b> são a porta de entrada: fazem o acolhimento e o encaminhamento. Horário geral das UBS: segunda a sexta, das 8h às 17h.</p>
+
+        <div class="subhead">Saúde mental · CAPS</div>
+        <div class="ubs-list">
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=CAPS+AD+de+Santana+Av+Lucena+de+Azevedo+499+Vila+Daniel+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">CAPS AD de Santana</span>
+            <span class="ad">Av. Lucena de Azevedo, 499 · Vila Daniel</span>
+            <span class="meta">📍 Ver no mapa · Adultos (18+) · álcool e outras drogas</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=CAPS+Espaco+JAPIIM+Rua+Adalvaro+Alves+Cavalcante+941+Central+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">CAPSi · Espaço JAPIIM</span>
+            <span class="ad">Rua Adalvaro Alves Cavalcante, 941 · Central</span>
+            <span class="meta">📍 Ver no mapa · Crianças e adolescentes (6–17 anos)</span>
+          </a>
+        </div>
+
+        <div class="subhead">UBS — acolhimento e encaminhamento</div>
+        <div class="ubs-list">
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=UBS+Dr+Iacy+Alcantara+Rua+Damiao+da+Cruz+Barreto+Fonte+Nova+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">UBS Dr. Iacy Alcântara</span>
+            <span class="ad">Rua Damião da Cruz Barreto, s/n · Fonte Nova</span>
+            <span class="meta">📍 Ver no mapa</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=UBS+Antonio+Serieiro+Avenida+Maria+Colares+796+Nova+Brasilia+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">UBS Antônio Serieiro</span>
+            <span class="ad">Av. Maria Colares, 796 · Nova Brasília</span>
+            <span class="meta">📍 Ver no mapa</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=UBS+Floriano+Rego+Rua+Claudio+Lucio+Monteiro+476+Comercial+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">UBS Floriano Rego</span>
+            <span class="ad">Rua Cláudio Lúcio Monteiro, 476 · Comercial</span>
+            <span class="meta">📍 Ver no mapa</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=UBS+Igarape+da+Fortaleza+Rodovia+Salvador+Diniz+2450+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">UBS Igarapé da Fortaleza</span>
+            <span class="ad">Rodovia Salvador Diniz, 2450 · Igarapé da Fortaleza</span>
+            <span class="meta">📍 Ver no mapa</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=UBS+Parque+das+Laranjeiras+Rua+das+Orquideas+264+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">UBS Parque das Laranjeiras</span>
+            <span class="ad">Rua das Orquídeas, 264 · Parque das Laranjeiras</span>
+            <span class="meta">📍 Ver no mapa</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=UBS+Picarreira+Ramal+do+Delta+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">UBS Picarreira</span>
+            <span class="ad">Ramal do Delta, s/n · Picarreira</span>
+            <span class="meta">📍 Ver no mapa</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=Policlinica+Maria+Tadeu+Aguiar+Juscelino+Kubitschek+529+Paraiso+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">Policlínica Maria Tadeu Aguiar</span>
+            <span class="ad">Av. Juscelino Kubitschek, 529 · Paraíso</span>
+            <span class="meta">📍 Ver no mapa</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=Policlinica+Dr+Alberto+Lima+Travessa+Moura+de+Carvalho+30+Daniel+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">Policlínica Dr. Alberto Lima</span>
+            <span class="ad">Travessa Moura de Carvalho, 30 · Daniel</span>
+            <span class="meta">📍 Ver no mapa</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=UBS+da+Familia+Elesbao+Ramal+da+Olaria+Vila+do+Elesbao+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">UBS da Família Elesbão</span>
+            <span class="ad">Ramal da Olaria, s/n · Elesbão</span>
+            <span class="meta">📍 Ver no mapa · comunidade ribeirinha</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=Posto+de+Saude+Igarape+do+Lago+Rua+Rita+Macedo+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">Posto de Saúde Igarapé do Lago</span>
+            <span class="ad">Rua Rita Macedo, s/n · Igarapé do Lago</span>
+            <span class="meta">📍 Ver no mapa · zona rural</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=Posto+de+Saude+Anauerapucu+Rodovia+AP-010+Vila+Anauerapucu+Santana+AP" target="_blank" rel="noopener">
+            <span class="nm">Posto de Saúde Anauerapucu</span>
+            <span class="ad">Rodovia AP-010, s/n · Vila Anauerapucu</span>
+            <span class="meta">📍 Ver no mapa · zona rural</span>
+          </a>
+          <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=UBS+Ilha+de+Santana+Amapa" target="_blank" rel="noopener">
+            <span class="nm">UBS Ilha de Santana</span>
+            <span class="ad">Ilha de Santana</span>
+            <span class="meta">📍 Ver no mapa · comunidade ribeirinha · confirmar local</span>
+          </a>
+        </div>
+
+        <p class="datanote">Endereços conforme dados públicos do CNES (jun/2026) e do portal da SESA-AP. Unidades em reforma ou de comunidades ribeirinhas podem funcionar em local provisório — confirme na Secretaria Municipal de Saúde de Santana antes de divulgar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CVV -->
+<section id="cvv">
+  <div class="wrap">
+    <div class="crisis">
+      <div class="kicker">Apoio emocional 24 horas</div>
+      <h2>Você não está sozinho.</h2>
+      <div class="num">188</div>
+      <p>O CVV atende de forma gratuita e sigilosa, por telefone, todos os dias, a qualquer hora.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="tel:188">Ligar 188</a>
+        <a class="btn btn-ghost" href="https://cvv.org.br" target="_blank" rel="noopener">Chat e e-mail no site</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QR -->
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Compartilhe</div>
+      <h2>Leve o pronto atendimento no bolso</h2>
+      <p>Aponte a câmera do celular para o QR Code e tenha o acolhimento à mão a qualquer momento.</p>
+    </div>
+    <div class="qrbox">
+      <div class="qrwrap">
+        <div id="qrcode"></div>
+        <span class="qrcap">Abre <b>cvv.org.br</b> · apoio 24h</span>
+      </div>
+      <div class="qrtext">
+        <h3>Acesso rápido ao CVV</h3>
+        <p>Aponte a câmera e o QR já abre a central de ajuda do CVV — telefone, chat e e-mail, a qualquer hora. Se depois você publicar esta página num link próprio, cole abaixo para o QR passar a abrir o material completo.</p>
+        <div class="qrfield">
+          <input type="text" id="qrInput" placeholder="Link final da página (opcional)…">
+          <button id="qrBtn">Atualizar QR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <svg class="laco" width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 2c-2 4-2 7 0 10 2-3 2-6 0-10Z" fill="#F2A900"/><path d="M12 12l-5 10 5-3 5 3-5-10Z" fill="#F2A900"/></svg>
+  <p><b>Setembro Amarelo</b> — Grupo MTA · Recursos Humanos</p>
+  <p>Cuidar de você é cuidar da nossa equipe. Em caso de emergência, ligue 188.</p>
+</footer>
+
+<script>
+const ubs = [
+  {n:"UBS Perpétuo Socorro", a:"Rua Rio Xingu, 278, Perpétuo Socorro", b:"perpétuo socorro"},
+  {n:"UBS Rubin Brito Aronovitch", a:"Av. 6 de Setembro, 212, Santa Inês", b:"santa inês"},
+  {n:"UBS Raimundo Hozanan", a:"Rua Hildemar Maia, 3710, Muca", b:"muca"},
+  {n:"UBS Congós", a:"Rua Claudomiro de Moraes, 340, Congós", b:"congós"},
+  {n:"UBS Padre Raul Matte", a:"Av. Wilson Carvalho, s/n (2ª Arena do Zerão), Zerão", b:"zerão"},
+  {n:"UBS Conceição Rosa Moita", a:"Av. Raimundo Pequilo Góes de Almeida, 294, Nova Esperança", b:"nova esperança"},
+  {n:"UBS Marabaixo", a:"Av. Quatro, s/n, Marabaixo 2", b:"marabaixo"},
+  {n:"UBS Coração", a:"Av. Profª Neuza Amaral, 1163, Vila do Coração", b:"coração"},
+  {n:"UBS BR 210", a:"BR 210, Loteamento Amazonas, zona norte", b:"zona norte amazonas"},
+  {n:"UBS Pedro Barros Monteiro", a:"Passagem D. Márcia, 445, Fazendinha", b:"fazendinha"},
+  {n:"UBS Pacoval", a:"Rua General Rondon, 225, Laguinho", b:"laguinho pacoval"},
+  {n:"UBS Marcelo Cândia", a:"Rua Ver. Júlio Maria Pinto Pereira, 1329, Jardim Felicidade", b:"jardim felicidade"},
+  {n:"UBS Cidade Nova", a:"Rua Beira Rio, 518, Perpétuo Socorro", b:"perpétuo socorro cidade nova"},
+  {n:"UBS Macapaba", a:"Conjunto Habitacional Macapaba, zona norte", b:"zona norte macapaba"},
+  {n:"UBS Unifap", a:"Rua Amadeu Gama (Ambulatório), Jardim Marco Zero", b:"jardim marco zero unifap"},
+  {n:"UBS Pedrinhas", a:"Av. João de Castro Sussuarana, 207, Jardim Equatorial", b:"jardim equatorial pedrinhas"},
+  {n:"UBS Álvaro Corrêa", a:"Av. Armando Tupan Alves de Abreu, 110, São Lázaro", b:"são lázaro"},
+  {n:"UBS Leozildo Barreto Fontoura", a:"Rua Inspetor Aymoré, 191, Jardim Marco Zero", b:"jardim marco zero"},
+  {n:"UBS Pantanal", a:"Rua João Almeida do Nascimento, 346, Pantanal", b:"pantanal"},
+  {n:"UBS Infraero I", a:"Passagem Jhonatan Bezerra, 1495, Infraero I", b:"infraero"},
+  {n:"UBS Infraero II", a:"Av. Carlos Lins Cortes, 161, Infraero II", b:"infraero"},
+  {n:"UBS São Pedro", a:"Rua Jovino Dinoá, 3985, Beirol", b:"beirol são pedro"},
+  {n:"UBS Brasil Novo", a:"Av. Abacatal, 177, Brasil Novo", b:"brasil novo"}
+];
+const emergencia = [
+  {n:"UBS Rubim Aronovitch", a:"Av. Seis de Setembro, Santa Inês", b:"santa inês", h:"Seg a sex, 7h às 13h"},
+  {n:"UBS Marcelo Cândia", a:"Rua Ver. Júlio Maria Pinto Pereira, 1329, Jardim Felicidade", b:"jardim felicidade", h:"Seg a sex, 7h às 13h"},
+  {n:"UBS Marabaixo", a:"Av. 4, s/n, Marabaixo 2", b:"marabaixo", h:"Seg a sex, 7h às 19h"}
+];
+
+let current = "macapa";
+const listEl=document.getElementById("list"), searchEl=document.getElementById("search"),
+  scheduleEl=document.getElementById("schedule"), santanaEl=document.getElementById("santana"),
+  searchWrap=document.getElementById("searchWrap"), countEl=document.getElementById("count");
+
+function norm(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function maps(a){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(a+", Macapá, AP")}
+
+function render(){
+  const q=norm(searchEl.value.trim());
+  const src=current==="emergencia"?emergencia:ubs;
+  const filtered=src.filter(u=>norm(u.n+" "+u.a+" "+u.b).includes(q));
+  countEl.textContent = q ? filtered.length+" resultado(s)" : filtered.length+" unidades";
+  if(!filtered.length){
+    listEl.innerHTML='<div class="empty">Não achamos uma UBS com esse termo. Tente o nome do bairro, ou fale com o RH que a gente ajuda a localizar. 💛</div>';
+    return;
+  }
+  listEl.innerHTML=filtered.map(u=>`
+    <a class="ubs" href="${maps(u.a)}" target="_blank" rel="noopener">
+      <span class="nm">${u.n}${u.h?'<span class="badge">Emergência</span>':''}</span>
+      <span class="ad">${u.a}</span>
+      <span class="meta">📍 Ver no mapa${u.h?' · '+u.h:''}</span>
+    </a>`).join("");
+}
+
+document.querySelectorAll(".tab").forEach(t=>{
+  t.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected","false"));
+    t.setAttribute("aria-selected","true");
+    current=t.dataset.tab;
+    const isSantana=current==="santana";
+    santanaEl.style.display=isSantana?"block":"none";
+    listEl.style.display=isSantana?"none":"grid";
+    searchWrap.style.display=isSantana?"none":"block";
+    scheduleEl.style.display=isSantana?"none":"block";
+    countEl.style.display=isSantana?"none":"block";
+    scheduleEl.innerHTML = current==="emergencia"
+      ? "<b>Atendimento de emergência</b> — confira o horário de cada unidade abaixo."
+      : "<b>Horário geral das UBS:</b> segunda a sexta, das 8h às 17h.";
+    searchEl.value="";
+    if(!isSantana) render();
+  });
+});
+searchEl.addEventListener("input",render);
+render();
+
+// QR
+const qrEl=document.getElementById("qrcode");
+new QRCode(qrEl,{text:"https://cvv.org.br",width:148,height:148,colorDark:"#2B2118",colorLight:"#ffffff"});
+document.getElementById("qrBtn").addEventListener("click",()=>{
+  const v=document.getElementById("qrInput").value.trim();
+  if(!v) return;
+  qrEl.innerHTML="";
+  new QRCode(qrEl,{text:v,width:148,height:148,colorDark:"#2B2118",colorLight:"#ffffff"});
+  document.querySelector(".qrcap").innerHTML="Abre o link que você definiu";
+});
+
+// scrollspy — destaca o chip da seção visível
+const chips=[...document.querySelectorAll(".navchips a")];
+const chipMap={}; chips.forEach(a=>chipMap[a.getAttribute("href").slice(1)]=a);
+const spy=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      chips.forEach(a=>a.classList.remove("active"));
+      if(chipMap[e.target.id]){
+        chipMap[e.target.id].classList.add("active");
+        chipMap[e.target.id].scrollIntoView({inline:"nearest",block:"nearest"});
+      }
+    }
+  });
+},{rootMargin:"-45% 0px -50% 0px",threshold:0});
+["cuidado","acolher","video","ajuda","cvv"].forEach(id=>{
+  const el=document.getElementById(id); if(el) spy.observe(el);
+});
+</script>
+</body>
+</html>
