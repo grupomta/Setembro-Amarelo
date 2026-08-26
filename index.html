@@ -291,7 +291,7 @@
     <div class="sec-head">
       <div class="kicker">Onde buscar ajuda</div>
       <h2>Atendimento psicológico gratuito</h2>
-      <p>Macapá e Santana. Veja a lista completa abaixo — ou filtre pelo seu bairro se quiser achar mais rápido.</p>
+      <p>Macapá e Santana. Toque em qualquer unidade para abrir a localização no mapa.</p>
     </div>
 
     <div class="finder">
@@ -299,12 +299,6 @@
         <button class="tab" role="tab" aria-selected="true" data-tab="macapa">Macapá · UBS</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="emergencia">Emergência</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="santana">Santana</button>
-      </div>
-
-      <div class="search" id="searchWrap">
-        <svg class="sic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="text" id="search" placeholder="Filtrar por bairro (opcional)…">
-        <small>Toque em qualquer UBS para abrir no mapa.</small>
       </div>
 
       <div class="schedule" id="schedule"><b>Horário geral das UBS:</b> segunda a sexta, das 8h às 17h.</div>
@@ -430,11 +424,7 @@
       </div>
       <div class="qrtext">
         <h3>Acesso rápido ao CVV</h3>
-        <p>Aponte a câmera e o QR já abre a central de ajuda do CVV — telefone, chat e e-mail, a qualquer hora. Se depois você publicar esta página num link próprio, cole abaixo para o QR passar a abrir o material completo.</p>
-        <div class="qrfield">
-          <input type="text" id="qrInput" placeholder="Link final da página (opcional)…">
-          <button id="qrBtn">Atualizar QR</button>
-        </div>
+        <p>Aponte a câmera do celular e o QR já abre a central de ajuda do CVV — telefone, chat e e-mail, disponível a qualquer hora do dia.</p>
       </div>
     </div>
   </div>
@@ -479,23 +469,16 @@ const emergencia = [
 ];
 
 let current = "macapa";
-const listEl=document.getElementById("list"), searchEl=document.getElementById("search"),
+const listEl=document.getElementById("list"),
   scheduleEl=document.getElementById("schedule"), santanaEl=document.getElementById("santana"),
-  searchWrap=document.getElementById("searchWrap"), countEl=document.getElementById("count");
+  countEl=document.getElementById("count");
 
-function norm(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
 function maps(a){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(a+", Macapá, AP")}
 
 function render(){
-  const q=norm(searchEl.value.trim());
   const src=current==="emergencia"?emergencia:ubs;
-  const filtered=src.filter(u=>norm(u.n+" "+u.a+" "+u.b).includes(q));
-  countEl.textContent = q ? filtered.length+" resultado(s)" : filtered.length+" unidades";
-  if(!filtered.length){
-    listEl.innerHTML='<div class="empty">Não achamos uma UBS com esse termo. Tente o nome do bairro, ou fale com o RH que a gente ajuda a localizar. 💛</div>';
-    return;
-  }
-  listEl.innerHTML=filtered.map(u=>`
+  countEl.textContent = src.length+" unidades";
+  listEl.innerHTML=src.map(u=>`
     <a class="ubs" href="${maps(u.a)}" target="_blank" rel="noopener">
       <span class="nm">${u.n}${u.h?'<span class="badge">Emergência</span>':''}</span>
       <span class="ad">${u.a}</span>
@@ -511,30 +494,19 @@ document.querySelectorAll(".tab").forEach(t=>{
     const isSantana=current==="santana";
     santanaEl.style.display=isSantana?"block":"none";
     listEl.style.display=isSantana?"none":"grid";
-    searchWrap.style.display=isSantana?"none":"block";
     scheduleEl.style.display=isSantana?"none":"block";
     countEl.style.display=isSantana?"none":"block";
     scheduleEl.innerHTML = current==="emergencia"
       ? "<b>Atendimento de emergência</b> — confira o horário de cada unidade abaixo."
       : "<b>Horário geral das UBS:</b> segunda a sexta, das 8h às 17h.";
-    searchEl.value="";
     if(!isSantana) render();
   });
 });
-searchEl.addEventListener("input",render);
 render();
 
 // QR
 const qrEl=document.getElementById("qrcode");
 new QRCode(qrEl,{text:"https://cvv.org.br",width:148,height:148,colorDark:"#2B2118",colorLight:"#ffffff"});
-document.getElementById("qrBtn").addEventListener("click",()=>{
-  const v=document.getElementById("qrInput").value.trim();
-  if(!v) return;
-  qrEl.innerHTML="";
-  new QRCode(qrEl,{text:v,width:148,height:148,colorDark:"#2B2118",colorLight:"#ffffff"});
-  document.querySelector(".qrcap").innerHTML="Abre o link que você definiu";
-});
-
 // scrollspy — destaca o chip da seção visível
 const chips=[...document.querySelectorAll(".navchips a")];
 const chipMap={}; chips.forEach(a=>chipMap[a.getAttribute("href").slice(1)]=a);
