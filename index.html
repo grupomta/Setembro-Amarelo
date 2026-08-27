@@ -6,185 +6,174 @@
 <title>Setembro Amarelo · Grupo MTA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   :root{
-    --paper:#FBF6EA; --paper-2:#F4ECD8; --ink:#2B2118; --ink-soft:#5C5040;
-    --amber:#F2A900; --amber-deep:#D98A00; --sage:#3E6B5A; --sage-soft:#EAF0EB;
-    --coral:#E0533D; --line:#E6DBC2; --radius:18px;
-    --shadow:0 1px 2px rgba(43,33,24,.06),0 12px 30px -18px rgba(43,33,24,.35);
-    --head-h:104px;
+    --paper:#F7F0E1; --paper-2:#EFE6D2; --card:#FDFBF4;
+    --ink:#2A2016; --ink-soft:#786A56;
+    --gold:#EBA92B; --gold-deep:#C4821A; --gold-soft:#FBEBC8;
+    --olive:#5E6B43; --olive-soft:#E8EBDC;
+    --espresso:#241B12; --line:#E5DAC3; --alert:#CC4E30;
+    --radius:15px; --shadow:0 1px 2px rgba(42,32,22,.05),0 14px 34px -24px rgba(42,32,22,.4);
+    --head-h:112px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--paper);color:var(--ink);overflow-x:hidden;
-    font-family:"Instrument Sans",system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:940px;margin:0 auto;padding:0 18px}
-  h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:500;line-height:1.14;letter-spacing:-.01em;margin:0}
+    font-family:"Instrument Sans",system-ui,sans-serif;font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  h1,h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:600;line-height:1.05;letter-spacing:-.02em;margin:0}
+  h3{font-family:"Instrument Sans",sans-serif;font-weight:600;margin:0;letter-spacing:-.01em}
   a{color:inherit}
-  .ribbon{width:16px;height:16px;flex:none}
+  .ribbon{width:15px;height:15px;flex:none}
 
-  /* ===== STICKY HEADER (brand + CVV + nav) ===== */
-  .topbar{position:sticky;top:0;z-index:60;background:rgba(251,246,234,.92);
-    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .topbar-row{max-width:940px;margin:0 auto;padding:9px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-  .brand{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:15px}
-  .cvv-pill{display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:var(--paper);
+  /* ===== HEADER ===== */
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(247,240,225,.88);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .topbar-row{max-width:960px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:600;font-size:15px;color:var(--ink)}
+  .cvv-pill{display:inline-flex;align-items:center;gap:7px;background:var(--espresso);color:#F7F0E1;
     text-decoration:none;padding:8px 15px;border-radius:999px;font-size:13.5px;font-weight:500;white-space:nowrap}
-  .cvv-pill b{color:var(--amber);font-size:15px}
-  .navchips{display:flex;gap:8px;overflow-x:auto;padding:2px 18px 11px;max-width:940px;margin:0 auto;
+  .cvv-pill b{color:var(--gold);font-size:15px}
+  .navchips{display:flex;gap:8px;overflow-x:auto;padding:2px 20px 11px;max-width:960px;margin:0 auto;
     scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
   .navchips::-webkit-scrollbar{display:none}
-  .navchips a{flex:none;text-decoration:none;font-size:14px;font-weight:600;color:var(--ink-soft);
-    background:#fff;border:1.5px solid var(--line);padding:9px 15px;border-radius:999px;white-space:nowrap;
-    transition:border-color .15s,color .15s,background .15s}
-  .navchips a:hover{color:var(--ink);border-color:var(--amber-deep)}
-  .navchips a.active{color:var(--ink);border-color:var(--ink);background:#fff8e6}
+  .navchips a{flex:none;text-decoration:none;font-size:13.5px;font-weight:600;color:var(--ink-soft);
+    background:var(--card);border:1px solid var(--line);padding:8px 14px;border-radius:8px;white-space:nowrap;transition:.18s}
+  .navchips a:hover{color:var(--ink);border-color:var(--gold-deep)}
+  .navchips a.active{color:var(--ink);border-color:var(--ink);background:var(--gold-soft)}
 
   section,header.hero{scroll-margin-top:var(--head-h)}
 
   /* ===== HERO ===== */
-  .hero{position:relative;overflow:hidden;padding:52px 0 46px}
-  .hero:before{content:"";position:absolute;inset:0;z-index:0;
-    background:radial-gradient(120% 90% at 88% -10%,rgba(242,169,0,.28),transparent 55%),
-    radial-gradient(90% 70% at 5% 110%,rgba(62,107,90,.14),transparent 60%)}
+  .hero{position:relative;overflow:hidden;padding:74px 0 66px;background:var(--paper)}
+  .hero::before{content:"";position:absolute;top:-14%;right:-8%;width:min(460px,80vw);aspect-ratio:1;border-radius:50%;z-index:0;
+    background:radial-gradient(circle,rgba(235,169,43,.2),transparent 62%)}
   .hero .wrap{position:relative;z-index:1}
-  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--amber-deep);background:#fff8e6;border:1px solid var(--line);padding:7px 13px;border-radius:999px}
-  .hero h1{font-size:clamp(36px,8vw,68px);margin:20px 0 0;max-width:12ch}
-  .hero h1 em{font-style:italic;color:var(--amber-deep)}
-  .hero p{font-size:clamp(17px,4.4vw,21px);color:var(--ink-soft);max-width:46ch;margin:16px 0 0}
-  .hero .actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--gold-deep);background:var(--card);border:1px solid var(--line);padding:7px 13px;border-radius:999px}
+  .hero h1{font-size:clamp(41px,8.8vw,80px);margin:22px 0 0;max-width:13ch;color:var(--ink)}
+  .hero h1 em{font-style:normal;background:linear-gradient(transparent 62%,rgba(235,169,43,.42) 62%);padding:0 .04em}
+  .hero p{font-size:clamp(17px,4.3vw,21px);color:var(--ink-soft);max-width:45ch;margin:20px 0 0}
+  .hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:600;
-    padding:14px 22px;border-radius:999px;font-size:16px;transition:transform .15s,box-shadow .15s}
+    padding:14px 24px;border-radius:10px;font-size:16px;transition:transform .15s,box-shadow .15s;cursor:pointer}
   .btn-primary{background:var(--ink);color:var(--paper)}
+  .btn-gold{background:var(--gold);color:var(--espresso);box-shadow:0 10px 26px -12px rgba(235,169,43,.7)}
   .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
   .btn:active{transform:translateY(1px)}
   @media(hover:hover){.btn:hover{transform:translateY(-2px)}}
 
   /* ===== SECTIONS ===== */
-  section{padding:48px 0}
-  .kicker{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);margin-bottom:11px}
-  .sec-head h2{font-size:clamp(26px,6vw,38px)}
-  .sec-head p{color:var(--ink-soft);max-width:56ch;margin:13px 0 0}
-  .divider{height:1px;background:var(--line);border:0;margin:0}
+  section{padding:64px 0}
+  .band{background:var(--paper-2)}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--gold-deep);margin-bottom:13px}
+  .kicker::before{content:"";width:24px;height:2px;background:var(--gold);border-radius:2px}
+  .sec-head h2{font-size:clamp(28px,5.4vw,45px)}
+  .sec-head p{color:var(--ink-soft);max-width:56ch;margin:14px 0 0}
 
-  .grid{display:grid;gap:14px;margin-top:30px}
+  .grid{display:grid;gap:15px;margin-top:36px}
   .g3{grid-template-columns:repeat(3,1fr)}
   .g2{grid-template-columns:repeat(2,1fr)}
-  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
-  .card .ic{font-size:26px;line-height:1;display:block;margin-bottom:12px}
-  .card h3{font-size:19px;margin-bottom:6px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .chip{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px;
+    background:var(--gold-soft);color:var(--gold-deep);border:1px solid #F0DDAF}
+  .chip svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .card h3{font-size:18px;margin-bottom:7px;color:var(--ink)}
   .card p{margin:0;font-size:15px;color:var(--ink-soft)}
 
-  .band{background:var(--paper-2)}
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
-  .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
-  .panel.sinais{border-top:5px solid var(--amber)}
-  .panel.acolher{border-top:5px solid var(--sage)}
-  .panel h3{font-size:21px;margin-bottom:8px}
-  .checklist{list-style:none;padding:0;margin:14px 0 0}
-  .checklist li{position:relative;padding:10px 0 10px 30px;border-bottom:1px dashed var(--line);font-size:15px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .panel::before{content:"";position:absolute;top:0;left:0;right:0;height:4px}
+  .panel.sinais::before{background:var(--gold)}
+  .panel.acolher::before{background:var(--olive)}
+  .panel h3{font-size:21px;margin-bottom:6px;color:var(--ink)}
+  .checklist{list-style:none;padding:0;margin:16px 0 0}
+  .checklist li{position:relative;padding:11px 0 11px 28px;border-bottom:1px solid var(--line);font-size:15px}
   .checklist li:last-child{border-bottom:0}
-  .checklist li:before{content:"";position:absolute;left:0;top:14px;width:15px;height:15px;border-radius:5px;
-    background:var(--sage-soft);border:1.5px solid var(--sage)}
-  .sinais .checklist li:before{background:#fdf0d6;border-color:var(--amber-deep)}
+  .checklist li::before{content:"";position:absolute;left:2px;top:18px;width:10px;height:10px;border-radius:50%;background:var(--gold)}
+  .panel.acolher .checklist li::before{background:var(--olive)}
 
-  .video-card{display:flex;gap:18px;align-items:center;background:var(--ink);color:var(--paper);
-    border-radius:20px;padding:22px;margin-top:26px;text-decoration:none}
-  .play{flex:none;width:60px;height:60px;border-radius:50%;background:var(--amber);display:grid;place-items:center}
-  .play svg{width:24px;height:24px;fill:var(--ink);margin-left:4px}
-  .video-card h3{color:var(--paper);font-size:20px}
-  .video-card span{color:#d8cdb8;font-size:14px;display:block;margin-top:3px}
+  .video-card{display:flex;gap:20px;align-items:center;background:var(--espresso);color:#F7F0E1;
+    border-radius:18px;padding:26px;margin-top:32px;text-decoration:none;position:relative;overflow:hidden;transition:transform .2s}
+  .video-card::after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;
+    background:radial-gradient(circle,rgba(235,169,43,.28),transparent 65%)}
+  .video-card:active{transform:translateY(1px)}
+  @media(hover:hover){.video-card:hover{transform:translateY(-3px)}}
+  .play{flex:none;width:60px;height:60px;border-radius:50%;background:var(--gold);display:grid;place-items:center;z-index:1}
+  .play svg{width:23px;height:23px;fill:var(--espresso);margin-left:4px}
+  .video-card h3{color:#F7F0E1;font-size:20px;z-index:1;position:relative}
+  .video-card span{color:rgba(247,240,225,.72);font-size:14px;display:block;margin-top:4px;z-index:1;position:relative}
 
-  /* ===== HELP FINDER ===== */
-  .finder{margin-top:28px}
-  .tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px;scrollbar-width:none}
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{flex:none;border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);padding:11px 17px;
-    border-radius:999px;font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s}
+  .finder{margin-top:34px}
+  .tabs{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px}
+  .tab{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--ink-soft);padding:11px 18px;
+    border-radius:9px;font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:.15s}
   .tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-  .search{position:relative;margin-bottom:14px}
-  .search input{width:100%;padding:15px 16px 15px 46px;font-size:16px;font-family:inherit;
-    border:1.5px solid var(--line);border-radius:13px;background:#fff;color:var(--ink)}
-  .search input:focus{outline:none;border-color:var(--amber-deep);box-shadow:0 0 0 4px rgba(242,169,0,.15)}
-  .search .sic{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:19px;height:19px;
-    stroke:var(--ink-soft);fill:none;stroke-width:2;stroke-linecap:round}
-  .search small{display:block;color:var(--ink-soft);font-size:13px;margin-top:7px;padding-left:2px}
-  .schedule{font-size:14px;color:var(--ink-soft);background:var(--sage-soft);border-radius:10px;padding:11px 14px;margin-bottom:14px}
-  .schedule b{color:var(--sage)}
-  .count{font-size:13px;color:var(--ink-soft);margin:0 0 12px;padding-left:2px}
+  .schedule{font-size:14px;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);
+    border-radius:10px;padding:12px 15px;margin-bottom:14px}
+  .schedule b{color:var(--ink)}
+  .count{font-size:13px;color:var(--ink-soft);margin:0 0 13px;padding-left:2px;font-weight:500}
   .ubs-list{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-  .ubs{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 16px;
-    display:flex;flex-direction:column;gap:3px;text-decoration:none;transition:border-color .15s,transform .15s}
-  .ubs:active{border-color:var(--amber-deep)}
-  @media(hover:hover){.ubs:hover{border-color:var(--amber-deep);transform:translateY(-2px)}}
-  .ubs .nm{font-weight:600;font-size:15.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .ubs{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;
+    display:flex;flex-direction:column;gap:3px;text-decoration:none;transition:.15s}
+  .ubs:active{border-color:var(--gold-deep)}
+  @media(hover:hover){.ubs:hover{border-color:var(--gold-deep);transform:translateY(-2px);box-shadow:var(--shadow)}}
+  .ubs .nm{font-weight:600;font-size:15.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:var(--ink)}
   .ubs .ad{font-size:13.5px;color:var(--ink-soft)}
-  .ubs .meta{font-size:12.5px;color:var(--sage);margin-top:2px}
-  .badge{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff;
-    background:var(--coral);padding:2px 8px;border-radius:999px}
-  .empty{grid-column:1/-1;text-align:center;color:var(--ink-soft);padding:26px;font-size:15px}
-  .santana p{font-size:15px;color:var(--ink-soft);margin:0 0 13px}
-  .santana .subhead{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);margin:22px 0 12px}
-  .santana .datanote{font-size:12.5px;color:var(--ink-soft);margin-top:18px;font-style:italic}
+  .ubs .meta{font-size:12.5px;color:var(--gold-deep);margin-top:2px;font-weight:500}
+  .badge{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:var(--alert);padding:2px 8px;border-radius:999px}
+  .subhead{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-deep);margin:24px 0 12px}
+  .santana>p{font-size:15px;color:var(--ink-soft);margin:0 0 13px}
 
-  /* ===== CVV ===== */
-  .crisis{background:linear-gradient(135deg,#2B2118,#3a2c1c);color:var(--paper);text-align:center;
-    border-radius:24px;padding:40px 22px;margin-top:10px}
-  .crisis .kicker{color:var(--amber);justify-content:center}
-  .crisis h2{color:var(--paper);font-size:clamp(24px,6vw,34px)}
-  .crisis .num{font-family:"Fraunces",serif;font-size:clamp(60px,20vw,92px);color:var(--amber);line-height:1;margin:8px 0}
-  .crisis p{color:#d8cdb8;max-width:44ch;margin:0 auto}
-  .crisis .actions{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-top:22px}
-  .crisis .btn-primary{background:var(--amber);color:var(--ink)}
-  .crisis .btn-ghost{color:var(--paper);border-color:#6b5c46}
+  .crisis{position:relative;overflow:hidden;background:linear-gradient(165deg,#2A2016,#3A2C1C);
+    color:#F7F0E1;text-align:center;border-radius:24px;padding:54px 26px 58px;margin-top:10px;isolation:isolate}
+  .crisis::before{content:"";position:absolute;left:50%;top:34%;transform:translateX(-50%);width:min(520px,110%);aspect-ratio:1;
+    border-radius:50%;z-index:-1;background:radial-gradient(circle,rgba(235,169,43,.34),transparent 60%)}
+  .crisis .kicker{color:var(--gold);justify-content:center}
+  .crisis .kicker::before{background:var(--gold)}
+  .crisis h2{color:#F7F0E1;font-size:clamp(26px,6vw,38px)}
+  .crisis .num{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(66px,20vw,104px);color:var(--gold);line-height:1;margin:6px 0 4px;text-shadow:0 0 36px rgba(235,169,43,.35)}
+  .crisis p{color:rgba(247,240,225,.8);max-width:44ch;margin:0 auto}
+  .crisis .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+  .crisis .btn-ghost{color:#F7F0E1;border-color:rgba(247,240,225,.4)}
 
-  /* ===== QR ===== */
-  .qrbox{display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin-top:28px;background:#fff;
-    border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
-  .qrwrap{flex:none;display:flex;flex-direction:column;align-items:center;gap:9px;margin:0 auto}
-  #qrcode{width:172px;height:172px;padding:12px;background:#fff;border-radius:14px;border:1px solid var(--line)}
+  .qrbox{display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin-top:32px;background:var(--card);
+    border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+  .qrwrap{flex:none;display:flex;flex-direction:column;align-items:center;gap:10px;margin:0 auto}
+  #qrcode{width:172px;height:172px;padding:12px;background:#fff;border-radius:13px;border:1px solid var(--line)}
   #qrcode img,#qrcode canvas{border-radius:6px}
   .qrcap{font-size:12.5px;color:var(--ink-soft)}
   .qrcap b{color:var(--ink)}
   .qrbox .qrtext{flex:1;min-width:240px}
-  .qrbox h3{font-size:21px;margin-bottom:6px}
-  .qrbox p{color:var(--ink-soft);font-size:14.5px;margin:0 0 13px}
-  .qrfield{display:flex;gap:8px;flex-wrap:wrap}
-  .qrfield input{flex:1;min-width:100%;padding:12px 14px;font-family:inherit;font-size:14.5px;border:1.5px solid var(--line);border-radius:10px}
-  .qrfield input:focus{outline:none;border-color:var(--amber-deep)}
-  .qrfield button{background:var(--ink);color:var(--paper);border:0;font-family:inherit;font-weight:600;padding:13px 20px;border-radius:10px;cursor:pointer;flex:1}
+  .qrbox h3{font-size:20px;margin-bottom:6px;color:var(--ink)}
+  .qrbox p{color:var(--ink-soft);font-size:14.5px;margin:0}
 
-  footer{background:var(--ink);color:#cfc4ae;text-align:center;padding:38px 20px;margin-top:52px}
-  footer .laco{margin:0 auto 12px;display:block}
-  footer p{margin:4px 0;font-size:14px}
-  footer b{color:var(--paper)}
+  footer{background:var(--espresso);color:rgba(247,240,225,.66);text-align:center;padding:44px 20px}
+  footer .laco{margin:0 auto 14px;display:block;color:var(--gold)}
+  footer p{margin:5px 0;font-size:14px}
+  footer b{color:#F7F0E1}
 
-  /* ===== MOBILE ===== */
   @media(max-width:760px){
-    :root{--head-h:118px}
+    :root{--head-h:120px}
     .g3,.g2,.two,.ubs-list{grid-template-columns:1fr}
     .btn{flex:1;min-width:calc(50% - 6px)}
-    section{padding:40px 0}
+    section{padding:48px 0}
     .qrbox{flex-direction:column;text-align:center}
     .qrbox .qrtext{min-width:100%}
-    .qrfield button{flex:1 1 100%}
   }
-  @media(max-width:400px){
-    .brand span{display:none}
-  }
-  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+  @media(max-width:400px){.brand span{display:none}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto;animation:none!important}}
 </style>
 </head>
 <body id="topo">
 
-<!-- STICKY HEADER -->
 <div class="topbar">
   <div class="topbar-row">
     <a class="brand" href="#topo">
-      <svg class="ribbon" viewBox="0 0 24 24" fill="none"><path d="M12 2c-2 4-2 7 0 10 2-3 2-6 0-10Z" fill="#D98A00"/><path d="M12 12l-5 10 5-3 5 3-5-10Z" fill="#D98A00"/></svg>
+      <svg class="ribbon" viewBox="0 0 24 24"><path d="M12 2c-2 4-2 7 0 10 2-3 2-6 0-10Z" fill="#C4821A"/><path d="M12 12l-5 10 5-3 5 3-5-10Z" fill="#C4821A"/></svg>
       <span>Setembro Amarelo</span>
     </a>
     <a class="cvv-pill" href="tel:188"><b>188</b> Ligar CVV</a>
@@ -193,30 +182,26 @@
     <a href="#cuidado">Autocuidado</a>
     <a href="#acolher">Acolher</a>
     <a href="#video">Vídeo</a>
-    <a href="#ajuda">Onde buscar ajuda</a>
+    <a href="#ajuda">Ajuda psicológica</a>
     <a href="#cvv">CVV 188</a>
   </nav>
 </div>
 
-<!-- HERO -->
 <header class="hero" id="inicio">
   <div class="wrap">
     <span class="eyebrow">
-      <svg class="ribbon" viewBox="0 0 24 24" fill="none"><path d="M12 2c-2 4-2 7 0 10 2-3 2-6 0-10Z" fill="#D98A00"/><path d="M12 12l-5 10 5-3 5 3-5-10Z" fill="#D98A00"/></svg>
-      Grupo MTA · Recursos Humanos
+      <svg class="ribbon" viewBox="0 0 24 24"><path d="M12 2c-2 4-2 7 0 10 2-3 2-6 0-10Z" fill="#C4821A"/><path d="M12 12l-5 10 5-3 5 3-5-10Z" fill="#C4821A"/></svg>
+      Setembro Amarelo · Grupo MTA
     </span>
     <h1>Falar sobre a vida <em>também é cuidado.</em></h1>
-    <p>Um mês para lembrar que ninguém precisa carregar tudo sozinho — e para deixar claro onde encontrar ajuda, aqui perto de você.</p>
+    <p>Um mês para lembrar que ninguém precisa carregar tudo sozinho e para mostrar, com clareza, onde encontrar ajuda perto de você.</p>
     <div class="actions">
-      <a class="btn btn-primary" href="#ajuda">Onde buscar ajuda</a>
+      <a class="btn btn-gold" href="#ajuda">Ajuda psicológica</a>
       <a class="btn btn-ghost" href="#cuidado">Autocuidado</a>
     </div>
   </div>
 </header>
 
-<hr class="divider">
-
-<!-- AUTOCUIDADO -->
 <section id="cuidado">
   <div class="wrap">
     <div class="sec-head">
@@ -225,17 +210,16 @@
       <p>Cuidar da saúde mental não é sobre grandes gestos. É sobre o que você repete nos dias comuns.</p>
     </div>
     <div class="grid g3">
-      <div class="card"><span class="ic">😴</span><h3>Durma o suficiente</h3><p>O sono regula humor e energia. Um horário mais constante já muda muita coisa.</p></div>
-      <div class="card"><span class="ic">🚶</span><h3>Mova o corpo</h3><p>Uma caminhada leve libera tensão e ajuda a organizar os pensamentos.</p></div>
-      <div class="card"><span class="ic">💬</span><h3>Fale com alguém</h3><p>Colocar em palavras alivia. Procure quem te escuta sem julgar.</p></div>
-      <div class="card"><span class="ic">🌬️</span><h3>Pausas conscientes</h3><p>Respire fundo algumas vezes ao longo do dia. Presença acalma.</p></div>
-      <div class="card"><span class="ic">📵</span><h3>Ponha limites</h3><p>Descansar do trabalho e das telas não é preguiça — é manutenção.</p></div>
-      <div class="card"><span class="ic">🫶</span><h3>Peça ajuda</h3><p>Buscar apoio profissional é sinal de força, nunca de fraqueza.</p></div>
+      <div class="card"><span class="chip"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.2 6.2 0 0 0 10.5 10.5Z"/></svg></span><h3>Durma o suficiente</h3><p>Dormir bem recarrega o corpo e a mente. Vale buscar uma rotina de sono mais tranquila.</p></div>
+      <div class="card"><span class="chip"><svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-7 4 14 2.5-7H21"/></svg></span><h3>Mova o corpo</h3><p>Qualquer atividade física ajuda: caminhar, dançar, pedalar, se alongar. O movimento alivia a tensão e clareia a mente.</p></div>
+      <div class="card"><span class="chip"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-10.9 6.7L4 19.5l1.3-4.2A7.5 7.5 0 1 1 20 11.5Z"/></svg></span><h3>Fale com alguém</h3><p>Dividir o que você sente com uma pessoa de confiança alivia o peso. Você não precisa enfrentar tudo em silêncio.</p></div>
+      <div class="card"><span class="chip"><svg viewBox="0 0 24 24"><path d="M3 8h10a2.6 2.6 0 1 0-2.6-2.6M3 12h13.5a2.6 2.6 0 1 1-2.6 2.6M3 16h8"/></svg></span><h3>Pausas conscientes</h3><p>Respire fundo algumas vezes ao longo do dia. Estar presente no agora acalma o corpo e a mente.</p></div>
+      <div class="card"><span class="chip"><svg viewBox="0 0 24 24"><path d="M12 3.5l7 2.6v4.9c0 4.3-2.9 7.2-7 8.5-4.1-1.3-7-4.2-7-8.5V6.1l7-2.6Z"/><path d="M9.3 12l2 2 3.4-3.6"/></svg></span><h3>Respeite seus limites</h3><p>Reservar um tempo longe do trabalho e das telas não é preguiça, é uma forma de cuidar de você.</p></div>
+      <div class="card"><span class="chip"><svg viewBox="0 0 24 24"><path d="M12 20.3S3.8 15.2 3.8 9.5A4.2 4.2 0 0 1 12 7a4.2 4.2 0 0 1 8.2 2.5c0 5.7-8.2 10.8-8.2 10.8Z"/></svg></span><h3>Busque apoio profissional</h3><p>Procurar um psicólogo ou um serviço de saúde é um passo de cuidado, não um sinal de fraqueza.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ACOLHER -->
 <section class="band" id="acolher">
   <div class="wrap">
     <div class="sec-head">
@@ -257,46 +241,44 @@
       <div class="panel acolher">
         <h3>Como acolher</h3>
         <ul class="checklist">
-          <li>Escute com atenção, sem julgar nem apressar</li>
-          <li>Pergunte diretamente — perguntar não coloca a ideia na cabeça</li>
-          <li>Leve a sério e não minimize o que a pessoa sente</li>
-          <li>Ofereça companhia para procurar ajuda profissional</li>
-          <li>Em risco imediato, não deixe a pessoa sozinha</li>
+          <li>Escute com atenção e paciência, sem julgar nem apressar</li>
+          <li>Abra espaço para a conversa, sem medo de tocar no assunto. Ouvir com cuidado já ajuda</li>
+          <li>Leve a sério o que ela sente e evite minimizar ou dar respostas prontas</li>
+          <li>Ajude a buscar apoio profissional e, se possível, vá junto</li>
+          <li>Havendo risco imediato, não deixe a pessoa sozinha e acione ajuda na hora (CVV 188 ou emergência)</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- VÍDEO -->
 <section id="video">
   <div class="wrap">
     <div class="sec-head">
       <div class="kicker">Assista</div>
       <h2>Entenda o Setembro Amarelo</h2>
     </div>
-    <a class="video-card" href="https://www.youtube.com/watch?v=BNj3xk_ctCA" target="_blank" rel="noopener">
+    <a class="video-card" href="https://www.youtube.com/watch?v=_sZsIaHvbjY" target="_blank" rel="noopener">
       <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
       <div>
-        <h3>Setembro Amarelo — a campanha</h3>
+        <h3>Campanha de prevenção ao suicídio</h3>
         <span>Toque para assistir no YouTube</span>
       </div>
     </a>
   </div>
 </section>
 
-<!-- ONDE BUSCAR AJUDA -->
 <section id="ajuda" class="band">
   <div class="wrap">
     <div class="sec-head">
-      <div class="kicker">Onde buscar ajuda</div>
+      <div class="kicker">Onde buscar ajuda psicológica</div>
       <h2>Atendimento psicológico gratuito</h2>
       <p>Macapá e Santana. Toque em qualquer unidade para abrir a localização no mapa.</p>
     </div>
 
     <div class="finder">
       <div class="tabs" role="tablist">
-        <button class="tab" role="tab" aria-selected="true" data-tab="macapa">Macapá · UBS</button>
+        <button class="tab" role="tab" aria-selected="true" data-tab="macapa">Macapá</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="emergencia">Emergência</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="santana">Santana</button>
       </div>
@@ -323,7 +305,7 @@
           </a>
         </div>
 
-        <div class="subhead">UBS — acolhimento e encaminhamento</div>
+        <div class="subhead">UBS · acolhimento e encaminhamento</div>
         <div class="ubs-list">
           <a class="ubs" href="https://www.google.com/maps/search/?api=1&query=UBS+Dr+Iacy+Alcantara+Rua+Damiao+da+Cruz+Barreto+Fonte+Nova+Santana+AP" target="_blank" rel="noopener">
             <span class="nm">UBS Dr. Iacy Alcântara</span>
@@ -386,14 +368,11 @@
             <span class="meta">📍 Ver no mapa · comunidade ribeirinha · confirmar local</span>
           </a>
         </div>
-
-        <p class="datanote">Endereços conforme dados públicos do CNES (jun/2026) e do portal da SESA-AP. Unidades em reforma ou de comunidades ribeirinhas podem funcionar em local provisório — confirme na Secretaria Municipal de Saúde de Santana antes de divulgar.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CVV -->
 <section id="cvv">
   <div class="wrap">
     <div class="crisis">
@@ -402,14 +381,13 @@
       <div class="num">188</div>
       <p>O CVV atende de forma gratuita e sigilosa, por telefone, todos os dias, a qualquer hora.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="tel:188">Ligar 188</a>
+        <a class="btn btn-gold" href="tel:188">Ligar 188</a>
         <a class="btn btn-ghost" href="https://cvv.org.br" target="_blank" rel="noopener">Chat e e-mail no site</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- QR -->
 <section class="band">
   <div class="wrap">
     <div class="sec-head">
@@ -424,15 +402,15 @@
       </div>
       <div class="qrtext">
         <h3>Acesso rápido ao CVV</h3>
-        <p>Aponte a câmera do celular e o QR já abre a central de ajuda do CVV — telefone, chat e e-mail, disponível a qualquer hora do dia.</p>
+        <p>Aponte a câmera do celular e o QR já abre a central de ajuda do CVV: telefone, chat e e-mail, disponível a qualquer hora do dia.</p>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <svg class="laco" width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 2c-2 4-2 7 0 10 2-3 2-6 0-10Z" fill="#F2A900"/><path d="M12 12l-5 10 5-3 5 3-5-10Z" fill="#F2A900"/></svg>
-  <p><b>Setembro Amarelo</b> — Grupo MTA · Recursos Humanos</p>
+  <svg class="laco" width="30" height="30" viewBox="0 0 24 24"><path d="M12 2c-2 4-2 7 0 10 2-3 2-6 0-10Z" fill="currentColor"/><path d="M12 12l-5 10 5-3 5 3-5-10Z" fill="currentColor"/></svg>
+  <p><b>Setembro Amarelo</b> · Grupo MTA · Recursos Humanos</p>
   <p>Cuidar de você é cuidar da nossa equipe. Em caso de emergência, ligue 188.</p>
 </footer>
 
@@ -497,17 +475,16 @@ document.querySelectorAll(".tab").forEach(t=>{
     scheduleEl.style.display=isSantana?"none":"block";
     countEl.style.display=isSantana?"none":"block";
     scheduleEl.innerHTML = current==="emergencia"
-      ? "<b>Atendimento de emergência</b> — confira o horário de cada unidade abaixo."
+      ? "<b>Atendimento de emergência:</b> confira o horário de cada unidade abaixo."
       : "<b>Horário geral das UBS:</b> segunda a sexta, das 8h às 17h.";
     if(!isSantana) render();
   });
 });
 render();
 
-// QR
 const qrEl=document.getElementById("qrcode");
-new QRCode(qrEl,{text:"https://cvv.org.br",width:148,height:148,colorDark:"#2B2118",colorLight:"#ffffff"});
-// scrollspy — destaca o chip da seção visível
+new QRCode(qrEl,{text:"https://cvv.org.br",width:148,height:148,colorDark:"#2A2016",colorLight:"#ffffff"});
+
 const chips=[...document.querySelectorAll(".navchips a")];
 const chipMap={}; chips.forEach(a=>chipMap[a.getAttribute("href").slice(1)]=a);
 const spy=new IntersectionObserver(entries=>{
